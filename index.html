@@ -1,31 +1,52 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hackathon Playbook</title>
+<title>Arándano · Eventos</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#fafaf9;color:#111;font-family:Inter,system-ui,sans-serif}
-header{padding:40px 28px 24px;border-bottom:1px solid #e5e5e5;background:#fff}h1{margin:0;font-size:40px;font-weight:800;letter-spacing:-1px}
-header p{color:#666;margin:8px 0 0}.top{display:flex;gap:16px;align-items:center;margin-top:16px}.all{flex:1;height:8px;background:#eee;border-radius:9px;overflow:hidden}.all i{display:block;height:100%;background:#2563eb}
-button.r{border:1px solid #ddd;background:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
-.wrap{display:grid;grid-template-columns:320px 1fr;min-height:80vh}nav{border-right:1px solid #e5e5e5;background:#fff}
-nav button{all:unset;display:flex;gap:12px;width:100%;padding:14px 22px;border-bottom:1px solid #f0f0f0;cursor:pointer;box-sizing:border-box}
-nav button:hover{background:#f5f5f4}nav button.on{background:#111;color:#fff}.n{font-weight:600;opacity:.5;width:22px}
-.t{font-weight:600}.bar{height:4px;background:#e5e5e5;border-radius:4px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:#2563eb}
-main{padding:32px;max-width:860px}h2{font-size:30px;margin:0 0 20px;letter-spacing:-.5px}
-details{background:#fff;border:1px solid #e5e5e5;border-radius:12px;margin-bottom:12px}summary{padding:14px 18px;cursor:pointer;font-weight:600}
-summary small{color:#888;font-weight:400;margin-left:8px}ul{list-style:none;margin:0;padding:0 18px 14px}li{padding:6px 0}label{cursor:pointer}
-input{accent-color:#2563eb;margin-right:10px}.done{color:#999;text-decoration:line-through}.nx{margin-top:20px}
-@media(max-width:760px){.wrap{grid-template-columns:1fr}nav{border-right:0}}
+*{box-sizing:border-box}body{margin:0;background:#f7f7fb;color:#15131f;font-family:Inter,system-ui,sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:18px 28px;background:#fff;border-bottom:1px solid #e7e5ef}
+.logo{font-weight:800;font-size:22px;color:#3b2a8f}.logo span{color:#6d5bd0}header .sp{flex:1}
+button{font:inherit;border:1px solid #ddd;background:#fff;border-radius:9px;padding:8px 14px;cursor:pointer}button.p{background:#3b2a8f;color:#fff;border-color:#3b2a8f}
+main{padding:28px;max-width:1200px;margin:auto}h1{margin:0 0 20px;font-size:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:#fff;border:1px solid #e7e5ef;border-radius:16px;padding:22px;cursor:pointer;transition:.15s}.card:hover{box-shadow:0 6px 24px #3b2a8f1a;transform:translateY(-2px)}
+.card h3{margin:0 0 4px;font-size:20px}.muted{color:#777;font-size:14px}.big{font-size:40px;font-weight:800;color:#3b2a8f;margin:14px 0 6px}
+.bar{height:8px;background:#eceaf5;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#6d5bd0,#3b2a8f)}
+.empty{border:2px dashed #d7d3ea;border-radius:16px;padding:40px;text-align:center;color:#888}
+.ev{display:grid;grid-template-columns:280px 1fr;gap:22px}.lib{background:#fff;border:1px solid #e7e5ef;border-radius:16px;padding:16px;align-self:start;position:sticky;top:16px}
+.lib h4{margin:0 0 4px}.chip{padding:10px 12px;border:1px solid #e7e5ef;border-radius:10px;margin-top:8px;cursor:grab;background:#faf9ff;display:flex;justify-content:space-between}.chip.used{opacity:.4}
+.drop{min-height:200px;border-radius:16px}.drop.over{outline:2px dashed #6d5bd0;background:#f1eefc}
+.blk{background:#fff;border:1px solid #e7e5ef;border-radius:14px;margin-bottom:14px}.bh{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:grab}
+.bh b{flex:1}.bh .bar{width:120px}.x{border:0;background:none;color:#999;padding:4px 8px}
+.task{padding:0 16px 10px}.task h5{margin:8px 0 4px;font-size:14px;color:#444}label{display:block;padding:4px 0;cursor:pointer;font-size:14px}label.d{color:#aaa;text-decoration:line-through}input{accent-color:#3b2a8f;margin-right:8px}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:18px}.top h1{margin:0;flex:1}
+@media(max-width:800px){.ev{grid-template-columns:1fr}.lib{position:static}}
 </style></head><body>
-<header><h1>Hackathon Playbook</h1><p>Todo lo que hay que hacer para organizar una hackathon, en orden. Elige un grupo, completa sus tareas y microtareas. El avance se guarda en este navegador.</p>
-<div class="top"><div class="all"><i id="all"></i></div><span id="pc"></span><button class="r" onclick="if(confirm('¿Reiniciar todo el avance?')){S={};save();draw()}">Reiniciar</button></div></header>
-<div class="wrap"><nav id="nav"></nav><main id="main"></main></div>
+<header><div class="logo">ar<span>á</span>ndano</div><div class="sp"></div><button onclick="exp()">Exportar</button><button onclick="document.getElementById('f').click()">Importar</button><input id="f" type="file" accept=".json" hidden onchange="imp(this)"></header>
+<main id="m"></main>
 <script src="data.js"></script>
 <script>
-let S=JSON.parse(localStorage.getItem('hp')||'{}'),cur=+(location.hash.slice(1)||1)-1;if(!G[cur])cur=0;
-const save=()=>localStorage.setItem('hp',JSON.stringify(S));const p=n=>String(n).padStart(2,'0');
-function cnt(i,j){let a=0,d=0;G[i].k.forEach((k,jj)=>{if(j!=null&&j!=jj)return;k[1].forEach((_,m)=>{a++;if(S[i+'-'+jj+'-'+m])d++})});return[d,a]}
-function draw(){let A=0,D=0;document.getElementById('nav').innerHTML=G.map((g,i)=>{const[d,a]=cnt(i);A+=a;D+=d;return`<button class="${i==cur?'on':''}" onclick="go(${i})"><span class="n">${p(i+1)}</span><span style="flex:1"><span class="t">${g.t}</span><div class="bar"><i style="width:${d/a*100}%"></i></div></span></button>`}).join('');
-const pc=Math.round(D/A*100);document.getElementById('all').style.width=pc+'%';document.getElementById('pc').textContent=pc+'% completo';
-const g=G[cur];document.getElementById('main').innerHTML=`<h2>${p(cur+1)} · ${g.t}</h2>`+g.k.map((k,j)=>{const[d,a]=cnt(cur,j);return`<details open><summary>${k[0]}<small>${d}/${a}</small></summary><ul>${k[1].map((m,x)=>{const id=cur+'-'+j+'-'+x;return`<li><label class="${S[id]?'done':''}"><input type="checkbox" ${S[id]?'checked':''} onchange="S['${id}']=this.checked;save();draw()">${m}</label></li>`}).join('')}</ul></details>`}).join('')+(G[cur+1]?`<button class="r nx" onclick="go(${cur+1})">Siguiente: ${G[cur+1].t} →</button>`:'')}
-function go(i){cur=i;location.hash=i+1;draw();scrollTo(0,0)}draw();
+let D=JSON.parse(localStorage.getItem('arandano')||'{"events":[]}'),view=location.hash.slice(1);
+const save=()=>localStorage.setItem('arandano',JSON.stringify(D)),uid=()=>Math.random().toString(36).slice(2,9);
+const st=items=>{let a=0,d=0;items.forEach(b=>b.k.forEach(t=>t[1].forEach(m=>{a++;if(m.d)d++})));return[d,a,a?Math.round(d/a*100):0]};
+function newEv(){const n=prompt('Nombre del evento','Taller de Grokbot');if(!n)return;const e={id:uid(),name:n,date:prompt('Fecha (opcional)','')||'',blocks:[]};D.events.push(e);save();open_(e.id)}
+function open_(id){location.hash=id}
+window.onhashchange=()=>{view=location.hash.slice(1);draw()};
+function home(){const m=document.getElementById('m');m.innerHTML=`<div class="top"><h1>Mis eventos</h1><button class="p" onclick="newEv()">+ Nuevo evento</button></div>`+(D.events.length?`<div class="grid">${D.events.map(e=>{const[d,a,p]=st(e.blocks);return`<div class="card" onclick="open_('${e.id}')"><h3>${e.name}</h3><div class="muted">${e.date||'Sin fecha'} · ${e.blocks.length} grupos</div><div class="big">${p}%</div><div class="bar"><i style="width:${p}%"></i></div><div class="muted" style="margin-top:8px">${d} de ${a} microtareas</div></div>`}).join('')}</div>`:`<div class="empty">Aún no tienes eventos. Crea el primero con “+ Nuevo evento”.</div>`)}
+function ev(e){const used=new Set(e.blocks.map(b=>b.t));const[d,a,p]=st(e.blocks);
+document.getElementById('m').innerHTML=`<div class="top"><button onclick="location.hash=''">← Eventos</button><h1>${e.name}</h1><span class="muted">${p}% · ${d}/${a}</span><button onclick="ren('${e.id}')">Renombrar</button><button onclick="del('${e.id}')">Eliminar</button></div><div class="bar" style="margin-bottom:22px"><i style="width:${p}%"></i></div>
+<div class="ev"><div class="lib"><h4>Grupos</h4><div class="muted">Arrástralos al evento o haz clic para agregar</div>${G.map((g,i)=>`<div class="chip ${used.has(g.t)?'used':''}" draggable="true" ondragstart="event.dataTransfer.setData('lib',${i})" onclick="add('${e.id}',${i})"><span>${g.t}</span><span class="muted">+</span></div>`).join('')}<button style="width:100%;margin-top:12px" onclick="addAll('${e.id}')">Agregar todos</button></div>
+<div class="drop" id="dz">${e.blocks.length?'':'<div class="empty">Arrastra aquí los grupos que necesita este evento</div>'}${e.blocks.map((b,bi)=>{const[bd,ba,bp]=st([b]);return`<div class="blk" draggable="true" ondragstart="event.dataTransfer.setData('blk',${bi})" ondragover="event.preventDefault()" ondrop="dropOn(event,'${e.id}',${bi})"><div class="bh"><span class="muted">⋮⋮</span><b>${b.t}</b><span class="muted">${bd}/${ba}</span><div class="bar"><i style="width:${bp}%"></i></div><button class="x" onclick="rm('${e.id}',${bi})">✕</button></div>${b.k.map((t,ti)=>`<div class="task"><h5>${t[0]}</h5>${t[1].length==1&&t[1][0].t==t[0]?'':''}${t[1].map((mt,mi)=>`<label class="${mt.d?'d':''}"><input type="checkbox" ${mt.d?'checked':''} onchange="tg('${e.id}',${bi},${ti},${mi})">${mt.t}</label>`).join('')}</div>`).join('')}</div>`}).join('')}</div></div>`;
+const dz=document.getElementById('dz');dz.ondragover=x=>{x.preventDefault();dz.classList.add('over')};dz.ondragleave=()=>dz.classList.remove('over');dz.ondrop=x=>{dz.classList.remove('over');const l=x.dataTransfer.getData('lib');if(l!=='')add(e.id,+l)}}
+const E=id=>D.events.find(e=>e.id==id);
+function mk(i){const g=G[i];return{t:g.t,k:g.k.map(k=>[k[0],k[1].map(t=>({t,d:false}))])}}
+function add(id,i){const e=E(id);if(e.blocks.some(b=>b.t==G[i].t))return;e.blocks.push(mk(i));save();draw()}
+function addAll(id){G.forEach((_,i)=>{const e=E(id);if(!e.blocks.some(b=>b.t==G[i].t))e.blocks.push(mk(i))});save();draw()}
+function dropOn(x,id,to){x.stopPropagation();x.preventDefault();const e=E(id),f=x.dataTransfer.getData('blk');if(f!==''){const[b]=e.blocks.splice(+f,1);e.blocks.splice(to,0,b)}else{const l=x.dataTransfer.getData('lib');if(l!==''&&!e.blocks.some(b=>b.t==G[+l].t))e.blocks.splice(to,0,mk(+l))}save();draw()}
+function rm(id,bi){if(confirm('¿Quitar este grupo y su avance?')){E(id).blocks.splice(bi,1);save();draw()}}
+function tg(id,bi,ti,mi){const m=E(id).blocks[bi].k[ti][1][mi];m.d=!m.d;save();draw()}
+function ren(id){const n=prompt('Nuevo nombre',E(id).name);if(n){E(id).name=n;save();draw()}}
+function del(id){if(confirm('¿Eliminar este evento?')){D.events=D.events.filter(e=>e.id!=id);save();location.hash=''}}
+function exp(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(D,null,2)]));a.download='arandano-backup.json';a.click()}
+function imp(i){const r=new FileReader();r.onload=()=>{try{D=JSON.parse(r.result);save();draw()}catch{alert('Archivo inválido')}};r.readAsText(i.files[0])}
+function draw(){const e=view&&E(view);e?ev(e):home()}draw();
 </script></body></html>
