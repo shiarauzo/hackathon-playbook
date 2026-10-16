@@ -1,0 +1,31 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hackathon Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fafaf9;color:#111;font-family:Inter,system-ui,sans-serif}
+header{padding:40px 28px 24px;border-bottom:1px solid #e5e5e5;background:#fff}h1{margin:0;font-size:40px;font-weight:800;letter-spacing:-1px}
+header p{color:#666;margin:8px 0 0}.top{display:flex;gap:16px;align-items:center;margin-top:16px}.all{flex:1;height:8px;background:#eee;border-radius:9px;overflow:hidden}.all i{display:block;height:100%;background:#2563eb}
+button.r{border:1px solid #ddd;background:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
+.wrap{display:grid;grid-template-columns:320px 1fr;min-height:80vh}nav{border-right:1px solid #e5e5e5;background:#fff}
+nav button{all:unset;display:flex;gap:12px;width:100%;padding:14px 22px;border-bottom:1px solid #f0f0f0;cursor:pointer;box-sizing:border-box}
+nav button:hover{background:#f5f5f4}nav button.on{background:#111;color:#fff}.n{font-weight:600;opacity:.5;width:22px}
+.t{font-weight:600}.bar{height:4px;background:#e5e5e5;border-radius:4px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:#2563eb}
+main{padding:32px;max-width:860px}h2{font-size:30px;margin:0 0 20px;letter-spacing:-.5px}
+details{background:#fff;border:1px solid #e5e5e5;border-radius:12px;margin-bottom:12px}summary{padding:14px 18px;cursor:pointer;font-weight:600}
+summary small{color:#888;font-weight:400;margin-left:8px}ul{list-style:none;margin:0;padding:0 18px 14px}li{padding:6px 0}label{cursor:pointer}
+input{accent-color:#2563eb;margin-right:10px}.done{color:#999;text-decoration:line-through}.nx{margin-top:20px}
+@media(max-width:760px){.wrap{grid-template-columns:1fr}nav{border-right:0}}
+</style></head><body>
+<header><h1>Hackathon Playbook</h1><p>Todo lo que hay que hacer para organizar una hackathon, en orden. Elige un grupo, completa sus tareas y microtareas. El avance se guarda en este navegador.</p>
+<div class="top"><div class="all"><i id="all"></i></div><span id="pc"></span><button class="r" onclick="if(confirm('¿Reiniciar todo el avance?')){S={};save();draw()}">Reiniciar</button></div></header>
+<div class="wrap"><nav id="nav"></nav><main id="main"></main></div>
+<script src="data.js"></script>
+<script>
+let S=JSON.parse(localStorage.getItem('hp')||'{}'),cur=+(location.hash.slice(1)||1)-1;if(!G[cur])cur=0;
+const save=()=>localStorage.setItem('hp',JSON.stringify(S));const p=n=>String(n).padStart(2,'0');
+function cnt(i,j){let a=0,d=0;G[i].k.forEach((k,jj)=>{if(j!=null&&j!=jj)return;k[1].forEach((_,m)=>{a++;if(S[i+'-'+jj+'-'+m])d++})});return[d,a]}
+function draw(){let A=0,D=0;document.getElementById('nav').innerHTML=G.map((g,i)=>{const[d,a]=cnt(i);A+=a;D+=d;return`<button class="${i==cur?'on':''}" onclick="go(${i})"><span class="n">${p(i+1)}</span><span style="flex:1"><span class="t">${g.t}</span><div class="bar"><i style="width:${d/a*100}%"></i></div></span></button>`}).join('');
+const pc=Math.round(D/A*100);document.getElementById('all').style.width=pc+'%';document.getElementById('pc').textContent=pc+'% completo';
+const g=G[cur];document.getElementById('main').innerHTML=`<h2>${p(cur+1)} · ${g.t}</h2>`+g.k.map((k,j)=>{const[d,a]=cnt(cur,j);return`<details open><summary>${k[0]}<small>${d}/${a}</small></summary><ul>${k[1].map((m,x)=>{const id=cur+'-'+j+'-'+x;return`<li><label class="${S[id]?'done':''}"><input type="checkbox" ${S[id]?'checked':''} onchange="S['${id}']=this.checked;save();draw()">${m}</label></li>`}).join('')}</ul></details>`}).join('')+(G[cur+1]?`<button class="r nx" onclick="go(${cur+1})">Siguiente: ${G[cur+1].t} →</button>`:'')}
+function go(i){cur=i;location.hash=i+1;draw();scrollTo(0,0)}draw();
+</script></body></html>
