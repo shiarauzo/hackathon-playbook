@@ -1,27 +1,27 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Arándano · Eventos</title>
+<title>Arándano · Eventos</title><link rel="icon" href="icon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f7f7fb;color:#15131f;font-family:Inter,system-ui,sans-serif}
 header{display:flex;align-items:center;gap:12px;padding:18px 28px;background:#fff;border-bottom:1px solid #e7e5ef}
-.logo{font-weight:800;font-size:22px;color:#3b2a8f}.logo span{color:#6d5bd0}header .sp{flex:1}
-button{font:inherit;border:1px solid #ddd;background:#fff;border-radius:9px;padding:8px 14px;cursor:pointer}button.p{background:#3b2a8f;color:#fff;border-color:#3b2a8f}
+.logo{font-weight:800;font-size:22px;color:#111}header .sp{flex:1}
+button{font:inherit;border:1px solid #ddd;background:#fff;border-radius:9px;padding:8px 14px;cursor:pointer}button.p{background:#111;color:#fff;border-color:#111}
 main{padding:28px;max-width:1200px;margin:auto}h1{margin:0 0 20px;font-size:28px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
-.card{background:#fff;border:1px solid #e7e5ef;border-radius:16px;padding:22px;cursor:pointer;transition:.15s}.card:hover{box-shadow:0 6px 24px #3b2a8f1a;transform:translateY(-2px)}
-.card h3{margin:0 0 4px;font-size:20px}.muted{color:#777;font-size:14px}.big{font-size:40px;font-weight:800;color:#3b2a8f;margin:14px 0 6px}
-.bar{height:8px;background:#eceaf5;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#6d5bd0,#3b2a8f)}
+.card{background:#fff;border:1px solid #e7e5ef;border-radius:16px;padding:22px;cursor:pointer;transition:.15s}.card:hover{box-shadow:0 6px 24px #1111a;transform:translateY(-2px)}
+.card h3{margin:0 0 4px;font-size:20px}.muted{color:#777;font-size:14px}.big{font-size:40px;font-weight:800;color:#111;margin:14px 0 6px}
+.bar{height:8px;background:#eceaf5;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#5B5BF0,#111)}
 .empty{border:2px dashed #d7d3ea;border-radius:16px;padding:40px;text-align:center;color:#888}
 .ev{display:grid;grid-template-columns:280px 1fr;gap:22px}.lib{background:#fff;border:1px solid #e7e5ef;border-radius:16px;padding:16px;align-self:start;position:sticky;top:16px}
 .lib h4{margin:0 0 4px}.chip{padding:10px 12px;border:1px solid #e7e5ef;border-radius:10px;margin-top:8px;cursor:grab;background:#faf9ff;display:flex;justify-content:space-between}.chip.used{opacity:.4}
-.drop{min-height:200px;border-radius:16px}.drop.over{outline:2px dashed #6d5bd0;background:#f1eefc}
+.drop{min-height:200px;border-radius:16px}.drop.over{outline:2px dashed #5B5BF0;background:#f1eefc}
 .blk{background:#fff;border:1px solid #e7e5ef;border-radius:14px;margin-bottom:14px}.bh{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:grab}
 .bh b{flex:1}.bh .bar{width:120px}.x{border:0;background:none;color:#999;padding:4px 8px}
-.task{padding:0 16px 10px}.task h5{margin:8px 0 4px;font-size:14px;color:#444}label{display:block;padding:4px 0;cursor:pointer;font-size:14px}label.d{color:#aaa;text-decoration:line-through}input{accent-color:#3b2a8f;margin-right:8px}
+.task{padding:0 16px 10px}.task h5{margin:8px 0 4px;font-size:14px;color:#444}label{display:block;padding:4px 0;cursor:pointer;font-size:14px}label.d{color:#aaa;text-decoration:line-through}input{accent-color:#111;margin-right:8px}
 .top{display:flex;align-items:center;gap:14px;margin-bottom:18px}.top h1{margin:0;flex:1}
 @media(max-width:800px){.ev{grid-template-columns:1fr}.lib{position:static}}
 </style></head><body>
-<header><div class="logo">ar<span>á</span>ndano</div><div class="sp"></div><button onclick="exp()">Exportar</button><button onclick="document.getElementById('f').click()">Importar</button><input id="f" type="file" accept=".json" hidden onchange="imp(this)"></header>
+<header><div class="logo"><img src="icon.svg" alt="" style="width:32px;height:32px;vertical-align:middle;margin-right:10px">arándano</div><div class="sp"></div><button onclick="exp()">Exportar</button><button onclick="document.getElementById('f').click()">Importar</button><input id="f" type="file" accept=".json" hidden onchange="imp(this)"></header>
 <main id="m"></main>
 <script src="data.js"></script>
 <script>
@@ -31,7 +31,7 @@ const st=items=>{let a=0,d=0;items.forEach(b=>b.k.forEach(t=>t[1].forEach(m=>{a+
 function newEv(){const n=prompt('Nombre del evento','Taller de Grokbot');if(!n)return;const e={id:uid(),name:n,date:prompt('Fecha (opcional)','')||'',blocks:[]};D.events.push(e);save();open_(e.id)}
 function open_(id){location.hash=id}
 window.onhashchange=()=>{view=location.hash.slice(1);draw()};
-function home(){const m=document.getElementById('m');m.innerHTML=`<div class="top"><h1>Mis eventos</h1><button class="p" onclick="newEv()">+ Nuevo evento</button></div>`+(D.events.length?`<div class="grid">${D.events.map(e=>{const[d,a,p]=st(e.blocks);return`<div class="card" onclick="open_('${e.id}')"><h3>${e.name}</h3><div class="muted">${e.date||'Sin fecha'} · ${e.blocks.length} grupos</div><div class="big">${p}%</div><div class="bar"><i style="width:${p}%"></i></div><div class="muted" style="margin-top:8px">${d} de ${a} microtareas</div></div>`}).join('')}</div>`:`<div class="empty">Aún no tienes eventos. Crea el primero con “+ Nuevo evento”.</div>`)}
+function home(){const m=document.getElementById('m');m.innerHTML=`<div class="top"><h1>Mis eventos</h1><button class="p" onclick="newEv()">+ Nuevo evento</button></div>`+(D.events.length?`<div class="grid">${D.events.map(e=>{const[d,a,p]=st(e.blocks);return`<div class="card" onclick="open_('${e.id}')"><h3>${e.name}</h3><div class="muted">${e.date||'Sin fecha'} · ${e.blocks.length} grupos</div><div class="big">${p}%</div><div class="bar"><i style="width:${p}%"></i></div><div class="muted" style="margin-top:8px">${d} de ${a} microtareas</div></div>`}).join('')}</div>`:`<div class="empty"><img src="logo.svg" alt="Arándano" style="width:140px;display:block;margin:0 auto 12px">Aún no tienes eventos. Crea el primero con “+ Nuevo evento”.</div>`)}
 function ev(e){const used=new Set(e.blocks.map(b=>b.t));const[d,a,p]=st(e.blocks);
 document.getElementById('m').innerHTML=`<div class="top"><button onclick="location.hash=''">← Eventos</button><h1>${e.name}</h1><span class="muted">${p}% · ${d}/${a}</span><button onclick="ren('${e.id}')">Renombrar</button><button onclick="del('${e.id}')">Eliminar</button></div><div class="bar" style="margin-bottom:22px"><i style="width:${p}%"></i></div>
 <div class="ev"><div class="lib"><h4>Grupos</h4><div class="muted">Arrástralos al evento o haz clic para agregar</div>${G.map((g,i)=>`<div class="chip ${used.has(g.t)?'used':''}" draggable="true" ondragstart="event.dataTransfer.setData('lib',${i})" onclick="add('${e.id}',${i})"><span>${g.t}</span><span class="muted">+</span></div>`).join('')}<button style="width:100%;margin-top:12px" onclick="addAll('${e.id}')">Agregar todos</button></div>
